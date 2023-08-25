@@ -2,10 +2,17 @@
 #include <stdlib.h>
 #define MAX 10
 
+/* Initialization happens in the main function 
+ Initialization function will be on the work */
+
 typedef struct node {
 	void *elemPtr;
 	int count;
 }List;
+
+/* Void pointer here is used since it allows it to point to any data type
+ When the time comes we need to assign a value, all we need is to typecast it
+  Before dereferencing the pointer */
 
 void insertElement(char data, List *head);
 void removeInstances(char data, List *head);
