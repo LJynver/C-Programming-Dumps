@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX 8
+
+typedef struct node {
+	char *ptr;
+	int count;
+}List;
+
+List init();
+void insertFrontUnique(char data, List *main);
+
+int main () {
+	
+	List main = init();
+	insertFrontUnique('A', &main);
+	
+	return 0;
+}
+
+List init() {
+	List start = {
+		.ptr = (char*)malloc(MAX),
+		.count = -1
+	};
+	return start;
+}
+
+void insertFrontUnique(char data, List *main) {
+	
+	if (main->count == -1) {
+		main->ptr[++main->count] = data;
+	} else {
+		int i;
+		for (i = 0; i <= main->count && main->ptr[i] != data; ++i) {}
+		if (i <= MAX && i > main->count) {
+			
+		}
+	}
+}
