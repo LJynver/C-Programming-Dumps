@@ -14,6 +14,8 @@ int main () {
 	
 	List main = init();
 	insertFrontUnique('A', &main);
+	insertFrontUnique('A', &main);
+	insertFrontUnique('B', &main);
 	
 	return 0;
 }
@@ -27,14 +29,9 @@ List init() {
 }
 
 void insertFrontUnique(char data, List *main) {
-	
-	if (main->count == -1) {
+	int i;
+	for (i = 0; i <= main->count && main->ptr[i] != data; ++i) {}
+	if (i <= MAX && i > main->count) {
 		main->ptr[++main->count] = data;
-	} else {
-		int i;
-		for (i = 0; i <= main->count && main->ptr[i] != data; ++i) {}
-		if (i <= MAX && i > main->count) {
-			
-		}
 	}
 }
