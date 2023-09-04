@@ -1,99 +1,90 @@
-/********************************************************
-
-******************* PRACTICE ACTIVITY *******************
-************** Array Implementation of ADT List *********
-************* Version 4 of Array Implementation *********
-****** Insert Function inserts elments accordingly ******
-***************** Start Date: 9/2/2023 ******************
-***************** End Date: 9/2/2023*********************
-
-********************************************************/
+/*************************************************************************************************/
+/************************ Array Implementation Version 4 *****************************************/
+/***************************** Author: Lyan Jover ************************************************/
+/************** Specs: Insert Function will only add element if unique ***************************/
+/******** Enum Boolean is used to catch any update states during list manipulations **************/
+/*************************** Starting Date: 9/4/2023 *********************************************/
+/************************** Completion Date: 9/4/2023 ********************************************/
+/*************************************************************************************************/
+/*************************************************************************************************/
 
 #include <stdio.h>
 #include <stdlib.h>
-#define MAX 8
+#define MAX 10
 
-typedef struct node {
+typedef struct list {
 	char *elemPtr;
 	int count;
-}*LIST;
+}*ArrayList;
 
-LIST init();
-void insertFirst(char data, LIST head);
-void display(LIST head);
-void removeInstances(char data, LIST head);
-int isTop(LIST head);
-char isFirst(LIST head);
+typedef enum {FALSE, TRUE} Boolean;
+
+ArrayList listInit();
+Boolean insertToFirst(char data, ArrayList A); //this only does the operation if data input to function is unique
+void displayList(ArrayList D, Boolean flag);
+Boolean deleteInstance(char data, ArrayList R);
 
 int main () {
 	
-	LIST main = init();
-	int top;
-	char first;
-	insertFirst('B', main);
-	insertFirst('C', main);
-	insertFirst('D', main);
-	insertFirst('A', main);
-	insertFirst('A', main);
-	insertFirst('G', main);
-	insertFirst('E', main);
-	insertFirst('F', main);
-	display(main);
+	ArrayList L = listInit();	
+	Boolean flag = insertToFirst('A', L);
+	displayList(L, flag);
+	flag = insertToFirst('C', L);
+	flag = insertToFirst('E', L);
+	flag = insertToFirst('F', L);
+	flag = insertToFirst('D', L);
+	displayList(L, flag);
 	
-	removeInstances('A', main);
-	display(main);
-	removeInstances('B', main);
-	display(main);
+	flag = insertToFirst('D', L);
+	displayList(L, flag);
 	
-	top = isTop(main);
-	printf("\nCurrent number of elements inside: %d\nThis means the last element was: %c\n", top, main->elemPtr[top-1]);
-	first = isFirst(main);
-	printf("\nThe first element of the list is: %c\n", first);
+	flag = deleteInstance('F', L);
+	displayList(L, flag);
+	flag = deleteInstance('B', L);
+	displayList(L, flag);
+	flag = deleteInstance('A', L);
+	displayList(L, flag);
 	
 	return 0;
 }
 
-LIST init() {
-	LIST start = (LIST)malloc(sizeof(struct node));
+ArrayList listInit() {
+	ArrayList start = (ArrayList)malloc(sizeof(struct list));
 	if (start != NULL) {
 		start->elemPtr = (char*)calloc(MAX, 1);
-		(start->elemPtr != NULL) ? start->count = 0 : 0 ;
+		(start->elemPtr != NULL) ? start->count = 0 : 0;
 	}
 	return start;
 }
 
-void insertFirst(char data, LIST head) {
-	if (head->count < MAX) {
-		int i;
-		for (i = head->count; i > 0 && head->elemPtr[i-1] > data; head->elemPtr[i] = head->elemPtr[i-1], --i) {}
-		head->elemPtr[i] = data;
-		head->count++;
-	}
-}
-
-void display(LIST head) {
-	int i;
-	for (i = 0; i < head->count; printf("_%c_", head->elemPtr[i]), ++i) {}
-	printf("\n\n");
-}
-
-void removeInstances(char data, LIST head) {
-	int i = 0, j;
-	while (i < head->count) {
-		if (head->elemPtr[i] == data) {
-			head->count--;
-			for (j = i; j < head->count; head->elemPtr[j] = head->elemPtr[j+1], ++j) {}
-			head->elemPtr[j] = '\0';
-		} else {
-			++i;
+Boolean insertToFirst(char data, ArrayList A) {
+	Boolean retVal = FALSE;
+	if (A->count < MAX) {
+		int ndex;
+		for (ndex = 0; ndex < A->count && A->elemPtr[ndex] != data; ++ndex) {}
+		if (ndex == A->count) {
+			for (; ndex > 0; A->elemPtr[ndex] = A->elemPtr[ndex-1], --ndex) {} A->elemPtr[ndex] = data;
+			A->count++;
+			retVal = TRUE;
 		}
 	}
+	return retVal;
 }
 
-int isTop(LIST head) {
-	return head->count;
+void displayList(ArrayList D, Boolean flag) {
+	(flag == 1) ? printf("The list was updated!\n") : printf("No new changes were made!\n");
+	int i;
+	for (i = 0; i < D->count; printf("[%c] ", D->elemPtr[i]), ++i) {} printf("\n\n");
 }
 
-char isFirst(LIST head) {
-	return head->elemPtr[0];
+Boolean deleteInstance(char data, ArrayList R) {
+	int ndex = 0, shift;
+	Boolean retVal = FALSE;
+	while (ndex < R->count) {
+		if (R->elemPtr[ndex] == data) {
+			for (shift = ndex; shift < R->count; R->elemPtr[shift] = R->elemPtr[shift+1], ++shift) {} R->count--;
+			retVal = TRUE;
+		} else {++ndex;}
+	}
+	return retVal;
 }
