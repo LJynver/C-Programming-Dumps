@@ -94,7 +94,7 @@ void insertFirst(MainList *head) {
 	if (strcmp(input.program, "BSIT") == 0) { //IT entries inside the array
 		if (head->arrayPtr->count < SIZE) {
 			int ndx;
-			for (ndx = head->arrayPtr->count; ndx > 0; head->arrayPtr->studRec[ndx] = head->arrayPtr->studRec[ndx-1], ++ndx) {}
+			for (ndx = head->arrayPtr->count; ndx > 0; head->arrayPtr->studRec[ndx] = head->arrayPtr->studRec[ndx-1], --ndx) {}
 			head->arrayPtr->studRec[ndx] = input;
 			++head->arrayPtr->count;
 		} else {
@@ -118,15 +118,14 @@ void displayAllList(MainList head) {
 	int ndx;
 	printf("\nPrinting the BSIT Arrays...\n"); getch(); system("cls");
 	for (ndx = 0; ndx < head.arrayPtr->count; ++ndx) {
-		printf("First Name\t: %s\n", head.arrayPtr->studRec[ndx].fName);
-		printf("Last Name\t: %s\n", head.arrayPtr->studRec[ndx].lName);
-		printf("Student Year\t: %d\n", head.arrayPtr->studRec[ndx].year);
-		printf("Student ID\t: %d\n", head.arrayPtr->studRec[ndx].ID);
-		printf("Enrolled Program\t: %s\n", head.arrayPtr->studRec[ndx].program);
-		printf("---");
-		getch();
-		system("cls");
+		printf("|| First Name\t: %s\n", head.arrayPtr->studRec[ndx].fName);
+		printf("|| Last Name\t: %s\n", head.arrayPtr->studRec[ndx].lName);
+		printf("|| Student Year\t: %d\n", head.arrayPtr->studRec[ndx].year);
+		printf("|| Student ID\t: %d\n", head.arrayPtr->studRec[ndx].ID);
+		printf("|| Program\t: %s\n", head.arrayPtr->studRec[ndx].program);
+		printf("======================\n");
 	}
+	getch(); system("cls");
 	printf("\nPrinting the BSCS Linked List...\n"); getch(); system("cls");
 	while (head.head) {
 		printf("First Name\t: %s\n", head.head->studProfile.fName);
@@ -134,8 +133,12 @@ void displayAllList(MainList head) {
 		printf("Student Year\t: %d\n", head.head->studProfile.year);
 		printf("Student ID\t: %d\n", head.head->studProfile.ID);
 		printf("Enrolled Program\t: %s\n", head.head->studProfile.program);
-		getch();
-		system("cls");
+		if (head.head->link != NULL) {
+			printf("\t\t |\n");
+			printf("\t\t |\n");
+			printf("\t\t |\n");
+			printf("\t\t V\n");
+		}
 		head.head = head.head->link;
 	}
 }
