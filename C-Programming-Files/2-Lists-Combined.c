@@ -32,6 +32,7 @@ typedef struct list { //everything is here
 MainList init();
 studType initInput();
 void insertFirst(MainList *head);
+void deleteElement(MainList *head);
 void displayAllList(MainList head);
 
 int main () {
@@ -47,6 +48,7 @@ int main () {
 				insertFirst(&main);
 				break;
 			case 2: //delete element
+				deleteElement(&main);
 				break;
 			case 3: //display list
 				displayAllList(main);
@@ -93,8 +95,8 @@ void insertFirst(MainList *head) {
 	
 	if (strcmp(input.program, "BSIT") == 0) { //IT entries inside the array
 		if (head->arrayPtr->count < SIZE) {
-			int ndx;
-			for (ndx = head->arrayPtr->count; ndx > 0; head->arrayPtr->studRec[ndx] = head->arrayPtr->studRec[ndx-1], --ndx) {}
+			int ndx = head->arrayPtr->count;
+			for (; ndx > 0; head->arrayPtr->studRec[ndx] = head->arrayPtr->studRec[ndx-1], --ndx) {}
 			head->arrayPtr->studRec[ndx] = input;
 			++head->arrayPtr->count;
 		} else {
@@ -111,6 +113,35 @@ void insertFirst(MainList *head) {
 		}
 	} else {
 		printf("Program is not under DCISM. Please try again!");
+	}
+}
+
+void deleteElement(MainList *head) { //delete once
+	int ID;
+	printf("Enter the ID number of the entry to delete: ");
+	scanf("%d", &ID);
+	
+	int ndx = 0;
+	for (; ndx < head->arrayPtr->count && head->arrayPtr->studRec[ndx].ID != ID; ++ndx) {}
+	if (ndx < head->arrayPtr->count) {
+		head->arrayPtr->count--;
+		for (; ndx < head->arrayPtr->count; ++ndx) {
+			head->arrayPtr->studRec[ndx] = head->arrayPtr->studRec[ndx+1];
+		}
+		printf("\nEntry is removed from the array!\n");
+	} else {
+		printf("\nEntry is not in the Array List\n");
+	}
+	
+	NodeLink *trav = &head->head;
+	for (; *trav != NULL && (*trav)->studProfile.ID != ID; trav = &(*trav)->link) {}
+	if (*trav != NULL) {
+		NodeLink temp = *trav;
+		*trav = temp->link;
+		free(temp);
+		printf("\nEntry is removed from the Linked List!\n");
+	} else {
+		printf("\nEntry is not in the Linked List!\n");
 	}
 }
 
@@ -132,7 +163,7 @@ void displayAllList(MainList head) {
 		printf("Last Name\t: %s\n", head.head->studProfile.lName);
 		printf("Student Year\t: %d\n", head.head->studProfile.year);
 		printf("Student ID\t: %d\n", head.head->studProfile.ID);
-		printf("Enrolled Program\t: %s\n", head.head->studProfile.program);
+		printf("Program\t: %s\n", head.head->studProfile.program);
 		if (head.head->link != NULL) {
 			printf("\t\t |\n");
 			printf("\t\t |\n");
