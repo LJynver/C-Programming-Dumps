@@ -39,10 +39,6 @@ int main () {
     printf("SET C (Union): ");
     displayList(C);
 
-    SET D = intersectionSet(A, B);
-    printf("SET D (Intersection): ");
-    displayList(D);
-
     return 0;
 }
 
@@ -67,32 +63,39 @@ SET unionSet(SET A, SET B) {
     SET temp; //for insertion
     SET *trav = &result; //moves after insertion
 
-    while (A != NULL && B != NULL) {
+    while (A != NULL || B != NULL) {
+
+        if (A == NULL) {
+            A = B;
+        }
+        if (B == NULL) {
+            B = A;
+        }
+
         temp = (SET)malloc(sizeof(struct nodes));
         if (temp != NULL) {
 
-            if (A->data < B->data) { 
+            if (A->data < B->data) {
                 temp->data = A->data;
                 A = A->link;
-            } else if (A->data > B->data) { 
+            } else if (A->data > B->data) {
                 temp->data = B->data;
                 B = B->link;
-            } else { 
-                temp->data = A->data;
+            } else {
+                if (A != NULL) {
+                    temp->data = A->data;
+                } else if (B != NULL) {
+                    temp->data = B->data;
+                }
                 A = A->link;
                 B = B->link;
             }
-            temp->link = NULL;
+
+            temp->link = *trav;
             *trav = temp;
             trav = &(*trav)->link;
 
         }
-    }
-
-    if (A != NULL) {
-        *trav = A;
-    } else if (B != NULL) {
-        *trav = B;
     }
 
     return result;
@@ -126,6 +129,7 @@ SET intersectionSet(SET A, SET B) {
 
     return result;
 }
+
 
 void displayList(SET D) {
     for (; D != NULL; D = D->link) {
