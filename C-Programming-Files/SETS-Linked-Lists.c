@@ -10,6 +10,7 @@ SET initSet();
 void insertSorted(SET *S, int data);
 SET unionSet(SET A, SET B);
 SET intersectionSet(SET A, SET B);
+SET differenceSet(SET A, SET B);
 void displayList(SET D);
 
 int main () {
@@ -39,6 +40,14 @@ int main () {
     printf("SET C (Union): ");
     displayList(C);
 
+    SET D = intersectionSet(A, B);
+    printf("SET D (Intersection): ");
+    displayList(D);
+
+    SET E = differenceSet(A, B);
+    printf("SET E (Difference): ");
+    displayList(E);
+
     return 0;
 }
 
@@ -60,8 +69,7 @@ void insertSorted(SET *S, int data) {
 
 SET unionSet(SET A, SET B) {
     SET result = NULL;
-    SET temp; //for insertion
-    SET *trav = &result; //moves after insertion
+    SET *trav = &result; 
 
     while (A != NULL || B != NULL) {
 
@@ -72,62 +80,76 @@ SET unionSet(SET A, SET B) {
             B = A;
         }
 
-        temp = (SET)malloc(sizeof(struct nodes));
-        if (temp != NULL) {
+        *trav = (SET)malloc(sizeof(struct nodes));
+        if (*trav != NULL) {
 
             if (A->data < B->data) {
-                temp->data = A->data;
+                (*trav)->data = A->data;
                 A = A->link;
             } else if (A->data > B->data) {
-                temp->data = B->data;
+                (*trav)->data = B->data;
                 B = B->link;
             } else {
                 if (A != NULL) {
-                    temp->data = A->data;
+                    (*trav)->data = A->data;
                 } else if (B != NULL) {
-                    temp->data = B->data;
+                    (*trav)->data = B->data;
                 }
                 A = A->link;
                 B = B->link;
             }
 
-            temp->link = *trav;
-            *trav = temp;
             trav = &(*trav)->link;
 
         }
     }
+
+    *trav = NULL;
 
     return result;
 }
 
 SET intersectionSet(SET A, SET B) {
     SET result = NULL;
-    SET temp; //for insertion
-    SET *trav = &result; //moves after insertion
+    SET *trav = &result;
 
     while (A != NULL && B != NULL) {
-            if (A->data == B->data) {
-                temp = (SET)malloc(sizeof(struct nodes));
-                if (temp != NULL) {
-                    temp->data = A->data;
-                    temp->link = *trav;
-                    *trav = temp;
-                    trav = &(*trav)->link;
-                }
+        if (A->data == B->data) {
+            *trav = (SET)malloc(sizeof(struct nodes));
+            if (*trav != NULL) {
+                (*trav)->data = A->data;
                 A = A->link;
                 B = B->link;
-            } else {
-                if (A->data < B->data) {
-                    A = A->link;
-                } else if (A->data > B->data) {
-                    B = B->link;
-                } 
+                trav = &(*trav)->link;
             }
-
+        } else {
+            if (A->data < B->data) {
+                A = A->link;
+            } else if (A->data > B->data) {
+                B = B->link;
+            }
         }
 
+    }
+
+    *trav = NULL;
+
     return result;
+}
+
+SET differenceSet(SET A, SET B) { //If A is the first param, it will be the basis for difference
+    SET result = NULL;
+    SET *trav = &result;
+
+    while (A != NULL) {
+        if (A->data < B->data || A->data > B->data) {
+            *trav = (SET)malloc(sizeof(struct nodes));
+            
+        }
+    }
+
+    return result;
+
 }
 
 
