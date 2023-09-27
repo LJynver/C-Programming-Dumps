@@ -12,6 +12,6 @@
 
 ## DSA Topics that I am still working on...
 
-- Functions for ADT such as `insert`, `delete`,`search`,`isMember`
+- Functions for ADT such as `insert` `delete` `search` `isMember`
 - Cursor-based Implementations
 - Bitwise, Bitvector, Hash Table, UID with Unsorted Sets
