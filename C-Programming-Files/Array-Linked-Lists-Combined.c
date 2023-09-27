@@ -4,6 +4,9 @@
 #include <conio.h>
 #define SIZE 5
 
+//Combined Linked-List and Arrays into one program
+//This was made after Ma'am mentioned about it in an exam. Lmao
+
 typedef char String[20];
 
 typedef struct studentInfo { //user input goes here
