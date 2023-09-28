@@ -16,6 +16,7 @@ int hashFunction(int elem);
 Boolean isMember(Dictionary table, int elem);
 void insertHash(Dictionary table, int elem);
 void displayHTable(Dictionary table);
+void deleteHTable();
 
 int main () {
 
