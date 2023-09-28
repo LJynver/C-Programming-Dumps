@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+//File is not mine
+
 typedef struct nodes {
     int data;
     struct nodes *link;
