@@ -16,7 +16,7 @@ int hashFunction(int elem);
 Boolean isMember(Dictionary table, int elem);
 void insertHash(Dictionary table, int elem);
 void displayHTable(Dictionary table);
-void deleteHTable();
+void deleteHTable(Dictionary table, int elem);
 
 int main () {
 
@@ -31,6 +31,12 @@ int main () {
     insertHash(main, 11);
     insertHash(main, 23);
     insertHash(main, 99);
+
+
+    displayHTable(main);
+
+    deleteHTable(main, 91);
+    deleteHTable(main, 11);
 
     displayHTable(main);
 
@@ -78,5 +84,20 @@ void displayHTable(Dictionary table) {
             (trav->next != NULL) ? printf("(%d) -> ", trav->data) : printf("(%d)", trav->data);
         }
         printf("\n");
+    }
+}
+
+void deleteHTable(Dictionary table, int elem) {
+    if (isMember(table, elem)) {
+        int pos = hashFunction(elem);
+        List *trav = &table[pos];
+        for (; *trav != NULL && (*trav)->data != elem; trav = &(*trav)->next) {}
+        if (*trav != NULL) {
+            List temp = *trav;
+            *trav = temp->next;
+            free(temp);
+        }
+    } else {
+        printf("\nMember does not exist!\n");
     }
 }
