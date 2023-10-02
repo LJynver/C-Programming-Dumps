@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #define SIZE 8
 
+//open hashing
+
 typedef enum {FALSE, TRUE} Boolean;
 
 typedef struct nodes {
