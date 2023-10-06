@@ -31,19 +31,24 @@ int main () {
 
     VHeap List = initDictionary();
 
+    printf("\nInitialized...\n\n");
+    displayDictionary(List);
+    printf("\n\n");
+
     insertDictionary(&List, 'A');
-    // insertDictionary(&List, 'A');
-    // insertDictionary(&List, 'B');
-    // insertDictionary(&List, 'b');
-    // insertDictionary(&List, 'Z');
-    // insertDictionary(&List, 'O');
-    // insertDictionary(&List, 'F');
-    // insertDictionary(&List, 'L');
-    // insertDictionary(&List, 'N');
+    insertDictionary(&List, 'A');
+    insertDictionary(&List, 'B');
+    insertDictionary(&List, 'b');
+    insertDictionary(&List, 'Z');
+    insertDictionary(&List, 'O');
+    insertDictionary(&List, 'F');
+    insertDictionary(&List, 'L');
+    insertDictionary(&List, 'N');
 
     displayDictionary(List);
     printf("\n\n");
 
+    deleteDictionary(&List, 'A');
     deleteDictionary(&List, 'A');
 
     displayDictionary(List);
@@ -108,10 +113,12 @@ int allocSpace(VHeap *L) {
 
 void displayDictionary(VHeap D) {
     int ndx, synDx;
+    printf("-- PRIME --- \t --- SYNONYM ---\n\n");
     for (ndx = 0; ndx < PRIME_SET; ++ndx) {
-        printf("[%d, %c] -> ", ndx, D.Dictionary[ndx].data);
+        printf("[%d, %c]", ndx, D.Dictionary[ndx].data);
 
         if (D.Dictionary[ndx].link != -1) {
+            printf("\t -------> \t");
             for (synDx = D.Dictionary[ndx].link; synDx != -1 ; synDx = D.Dictionary[synDx].link) {
                 (D.Dictionary[synDx].link != -1) ? printf("[%d, %c] -> ", synDx, D.Dictionary[synDx].data) : printf("[%d, %c]", synDx, D.Dictionary[synDx].data);
             }
@@ -136,19 +143,7 @@ void deleteDictionary(VHeap *L, char data) {
 
     int delPos = isMember(*L, pos, data);
 
-    if (delPos == -1) {
-        printf("\nData does not exist yet!\n");
-    } else {
-        printf("\nIt was!\n");
-        int *trav = &L->Dictionary[delPos].link;
-        int tempNext = L->Dictionary[delPos].link;
-        *trav = L->Dictionary[tempNext].link;
-        deAllocSpace(L, tempNext);
+    if (delPos != -1) {
+        L->Dictionary[delPos].data = DELETED;
     }
-}
-
-void deAllocSpace(VHeap *L, int pos) {
-    L->Dictionary[pos].data = DELETED;
-    L->Dictionary[pos].link = L->avail;
-    L->avail = pos;
 }

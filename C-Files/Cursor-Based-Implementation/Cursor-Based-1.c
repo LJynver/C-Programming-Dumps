@@ -76,7 +76,7 @@ int allocSpace(VirtualHeap *VH) {
 
 void removeElement(List *L, char data, VirtualHeap *VH) {
 	int ndx;
-	for (ndx = *L; ) {}
+	// for (ndx = *L; ) {}
 }
 
 void deallocSpace(VirtualHeap *VH, int ndx) {
