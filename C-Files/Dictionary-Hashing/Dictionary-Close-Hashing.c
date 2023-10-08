@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+//close hashing attempt
+
 #define EMPTY '0'
 #define DELETED '!'
 
@@ -45,6 +47,10 @@ int main () {
     insertDictionary(&List, 'L');
     insertDictionary(&List, 'N');
 
+    //format for the display [index, data]
+    //shows the arrow if there are synonyms
+    // '!' is a sign the data is deleted
+
     displayDictionary(List);
     printf("\n\n");
 
@@ -73,9 +79,8 @@ VHeap initDictionary() {
         //     newDict.Dictionary[ndx].link = DELETED;
         // }
 
-        //shorthand
-
         newDict.Dictionary[ndx].link = (ndx < MAX_ARRAY - 1) ? ndx + 1 : -1;
+        //shorthand
 
     }
     return newDict;
