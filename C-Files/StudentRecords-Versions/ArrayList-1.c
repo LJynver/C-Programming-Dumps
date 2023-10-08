@@ -3,12 +3,11 @@
 #define MAX 10
 
 typedef char String[30];
-typedef int Course[4];
 
 typedef struct studRec {
     int year;
     String fname, lname, program;
-    Course courses[10];
+    int courses[10];
 } StudRec;
 
 typedef struct list {
@@ -35,6 +34,8 @@ int main () {
     
     printf("Count: %d", mainList.count);
 
+    display(mainList);
+
     return 0;
 }
 
@@ -59,21 +60,8 @@ void pop(StudList *P) {
 
 void display(StudList D) {
     StudList temp = {.count = 0};
-    for (; temp.count < MAX; temp.count++) {
-        push(&temp, D.studRecList[D.count]);
-
-        printf("StudRec[%d]:\nFirst Name: %s\nLast Name: %s\nYear: %d\nProgram: %s\nCourses: ", temp.count, temp.studRecList[temp.count].fname, temp.studRecList[temp.count].lname, temp.studRecList[temp.count].year, temp.studRecList[temp.count].program);
-
-        if (temp.studRecList[temp.count].courses[0]) {
-            int cdx;
-            for (cdx = 0; temp.studRecList[temp.count].courses[cdx] != -1; cdx++) {
-                printf("%s ", temp.studRecList[temp.count].courses[cdx]);
-            }
-        } else {
-            printf("\nNot enrolled!\n");
-        }
-        temp.count++;
-        pop(&D);
-        printf("\n\n");
+    D.count--;
+    for (; D.count > -1 ; temp.count++) {
+        
     }
 }
