@@ -1,11 +1,11 @@
 #include <stdio.h> 
 #include <string.h>
   
- #define MAX 10 
+#define MAX 10 
   
- typedef char String[30]; 
+typedef char String[30]; 
   
- typedef struct studRec { 
+typedef struct studRec { 
      int year; 
      String fname, lname, program; 
      int courses[10]; 
@@ -28,10 +28,12 @@
      StudRec A = {2, "Lyan", "Jover", "BSIT", {2101, 2102, 2103, 2105, 2106, -1}}; 
      StudRec B = {3, "John", "Doe", "BSCS", {2101, 2102, 2103, 2104, 2105, 2106, -1}}; 
      StudRec C = {2, "Julianne", "Mary", "BSIS", {1201, 2105, 2106, -1}}; 
+     StudRec D = {2, "Ariane", "Susan", "BSIT", {-1}}; 
   
      push(&mainList, A); 
      push(&mainList, B); 
      push(&mainList, C); 
+     push(&mainList, D); 
   
      display(mainList); 
   
