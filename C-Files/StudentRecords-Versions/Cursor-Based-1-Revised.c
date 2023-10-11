@@ -152,6 +152,7 @@ void delete(Vheap *Dict, int id) {
         if (*trav != -1) {
             int dpx = *trav;
             *trav = Dict->studList[dpx].next;
+            Dict->studList[dpx].profile.studID = DELETED;
             Dict->studList[dpx].next = Dict->avail;
             Dict->avail = dpx;
         } else {
