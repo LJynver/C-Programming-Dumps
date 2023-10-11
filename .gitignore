@@ -1,2 +1,4 @@
 #Ignore any compiled binaries 
 *.exe 
+#Ignore .dat binary files
+*.dat
