@@ -2,7 +2,9 @@
 #include <string.h>
   
 #define MAX 10 
-  
+
+//Using Stacks implementation
+
 typedef char String[30]; 
   
 typedef struct studRec { 

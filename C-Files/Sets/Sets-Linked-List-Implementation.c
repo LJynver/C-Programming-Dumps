@@ -24,6 +24,7 @@ int main () {
     insertSorted(&A, 5);
     insertSorted(&A, 3);
     insertSorted(&A, 6);
+    insertSorted(&A, 2);
 
     printf("SET A: ");
     displayList(A);
@@ -49,6 +50,10 @@ int main () {
     SET E = differenceSet(A, B);
     printf("SET E (Difference): ");
     displayList(E);
+
+    SET F = differenceSet(B, A);
+    printf("SET F (Difference): ");
+    displayList(F);
 
     return 0;
 }
@@ -139,16 +144,36 @@ SET intersectionSet(SET A, SET B) {
     return result;
 }
 
-SET differenceSet(SET A, SET B) { //If A is the first param, it will be the basis for difference
+SET differenceSet(SET A, SET B) { //Any argument pass as first paramter to SET A will be used as reference
     SET result = NULL;
     SET *trav = &result;
+    
+    //For reference, Difference will only get what SET A has that SET B does not have
+    //Since this is sorted, I decided to use less than as the basis for shifting each pointer
 
     while (A != NULL) {
-        if (A->data < B->data || A->data > B->data) {
+        if (B == NULL || (A->data != B->data && A->data < B->data)) {
             *trav = (SET)malloc(sizeof(struct nodes));
-            
+            if (*trav != NULL) {
+                (*trav)->data = A->data;
+                trav = &(*trav)->link;
+            }
         }
+
+        if (B == NULL || A->data < B->data) {
+            A = A->link;
+        } else if (B == NULL || B->data < A->data) {
+            B = B->link;
+        } else {
+            A = A->link;
+            if (B != NULL) {
+                B = B->link;
+            }
+        }
+
     }
+
+    *trav = NULL;
 
     return result;
 
@@ -158,5 +183,5 @@ SET differenceSet(SET A, SET B) { //If A is the first param, it will be the basi
 void displayList(SET D) {
     for (; D != NULL; D = D->link) {
         (D->link != NULL) ? printf(" [%d] -> ", D->data) : printf(" [%d] ", D->data);
-    } printf("\n");
+    } printf("\n\n");
 }

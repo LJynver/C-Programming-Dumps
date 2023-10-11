@@ -50,7 +50,7 @@ int main () {
     insert(&main, B);
     insert(&main, C);
     
-    int catcher = isMember(main, 22103650, 2);
+    int catcher = isMember(main, 22103650, 2); //returns the index
     printf("Is member at: [%d]\n\n\n", catcher);
 
     display(main);
@@ -101,7 +101,7 @@ void insert(Vheap *Dict, StudRec data) {
 }
 
 void display(Vheap Dict) {
-    int ndx, cdx, sdx;
+    int ndx, cdx, sdx; //ndx is actual index, cdx is courses index, sdx is synonyms index
     for (ndx = 0; ndx < PRIME_SET; ++ndx) {
         printf("[Year: %d]\n", ndx+1);
 
