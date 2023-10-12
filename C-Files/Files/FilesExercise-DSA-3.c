@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+//Require Task 2 to be made first
+
 typedef struct {
     char FN[24]; //First Name
     char MI; //Maiden Initial
@@ -16,11 +18,11 @@ typedef struct {
 
 void displayHeader();
 void displayStudent(StudType S);
-void readFile();
+void readAppendFile();
 
 int main () {
 
-    readFile();
+    readAppendFile();
 
     return 0;
 }
@@ -42,32 +44,6 @@ void displayHeader() {
     printf("%5s", "====");
 }
 
-void readFile() {
-    const char fileName[20];
-    printf("Enter a file name: ");
-    scanf(" %s", fileName);
-
-    displayHeader();
-
-    StudType studRec;
-    FILE *fp;
-    int rec = 0;
-    fp = fopen(fileName, "rb");
-    if (fp != NULL) {
-        while (fread(&studRec, sizeof(studRec), 1, fp) != 0) {
-            if (rec == 20) {
-                printf("\n");
-                system("pause");
-                system("cls");
-                displayHeader();
-            }
-            displayStudent(studRec);
-            rec++;
-        }
-        fclose(fp);
-    }
-}
-
 void displayStudent(StudType S) {
     printf("\n");
     printf("%-10d", S.ID);
@@ -76,4 +52,28 @@ void displayStudent(StudType S) {
     printf("%-3c", S.name.MI);
     printf("%-8s", S.course);
     printf("%5d", S.yrLevel); 
+}
+
+void readAppendFile() {
+    const char srcFile[30], destFile[30];
+    printf("Enter the filename to read: ");
+    scanf(" %s", &srcFile);
+
+    printf("Enter the filename to append read file to: ");
+    scanf(" %s", &destFile);
+
+    StudType buffer;
+
+    FILE *sfp, *dfp;
+
+    sfp = fopen(srcFile, "rb");
+    dfp = fopen(destFile, "ab");
+
+    // displayHeader();
+    if (sfp != NULL && dfp != NULL) {
+        while (fread(&buffer, sizeof(StudType), 1, sfp) != 0) { //while this is doing on the background, fp moves to the beginning address of the next studRec
+            // displayStudent(buffer);
+            fwrite(&buffer, sizeof(StudType), 1, dfp);
+        }
+    }
 }

@@ -1,6 +1,7 @@
 #include <stdio.h>
-#include <conio.h>
 #include <stdlib.h>
+
+//user input version
 
 typedef struct {
     char FN[24]; //First Name
