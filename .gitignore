@@ -2,3 +2,5 @@
 *.exe 
 #Ignore .dat binary files
 *.dat
+#Include the students.dat file
+!students.dat
