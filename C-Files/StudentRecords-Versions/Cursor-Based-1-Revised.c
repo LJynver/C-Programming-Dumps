@@ -34,7 +34,7 @@ Vheap initDictionary();
 int hash(int data);
 void insert(Vheap *Dict, StudRec data);
 void delete(Vheap *Dict, int id);
-int isMember(Vheap Dict, int ID, int year);
+int isMember(Vheap Dict, int ID);
 void display(Vheap Dict);
 
 int main () {
@@ -133,8 +133,8 @@ void display(Vheap Dict) {
     }
 }
 
-int isMember(Vheap Dict, int ID, int year) {
-    int pos = hash(year);
+int isMember(Vheap Dict, int ID) {
+    int pos = hash(ID);
 
     for (; pos != -1 && Dict.studList[pos].profile.studID != ID; pos = Dict.studList[pos].next) {}
 
