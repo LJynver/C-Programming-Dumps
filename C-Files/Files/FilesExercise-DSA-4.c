@@ -24,7 +24,7 @@ void updateFile(char oldCourse[], char newCourse[]);
 
 int main () {
 
-    updateFile("BSCS", "BSIS");
+    updateFile("BSCS", "BSIT");
 
     return 0;
 }
@@ -68,15 +68,14 @@ void updateFile(char oldCourse[], char newCourse[]) {
     if (fp != NULL) {
         while (fread(&buffer, sizeof(StudType), 1, fp) != 0) {
             if (strcmp(buffer.course, oldCourse) == 0) {
-                strcpy(buffer.course, newCourse); //the buffer will get the new course
-                fseek(fp, -sizeof(StudType), SEEK_CUR); //reposition the file pointer to the current studRec that buffer had
+                strcpy(buffer.course, newCourse); 
+                
+                fseek(fp, -sizeof(StudType), SEEK_CUR); 
 
-                //recall that for everytime an fread is successful it moves to the beginning of the next studRec
-
-                //hence in this case, we have to let it position back
                 fwrite(&buffer, sizeof(StudType), 1, fp);
-                //when this is successful we reposition it to where it was
-                fseek(fp, sizeof(StudType), SEEK_CUR);
+
+                
+                fseek(fp, 0, SEEK_CUR);
             }
         }
     }
