@@ -141,13 +141,9 @@ void displayCloseDict(closeDic CD);
  *--------------------------------------------------------------------------------*/	 
  	printf("\n\n\nProblem #2:: "); 
  	printf("\n------------");
-	//Declare variables needed for Problem #2
-	int returnedValue;
-	
- 	returnedValue = mallocInVHeap(&head);
- 	printf("\nReturned Value is %d\n", returnedValue);
  	//Function Calls for Problem #2
 	populateSet(&A);
+	displaySet(A);
 
 /*---------------------------------------------------------------------------------
  * 	Problem #3 ::  1) Converts the Cursor set into an Open Hash Dictionary        *      
@@ -287,23 +283,23 @@ int mallocInVHeap(VHeap *VH)
  
 void insertSorted(cursorSet *A, product P)
 {
- 	int *trav;
-	for (trav = &A->elemIndex; *trav != -1 && strcmp(A->VHptr->VH_node[*trav].elem.prodID, P.prodID) < 0; trav = &A->VHptr->VH_node[*trav].next) {}
+ 	if (A->count < VH_SIZE) {
+		int *trav;
+		for (trav = &A->elemIndex; *trav != -1 && strcmp(P.prodID, A->VHptr->VH_node[*trav].elem.prodID) > 0; trav = &A->VHptr->VH_node[*trav].next) {}
 
-	if (*trav != -1 && strcmp(A->VHptr->VH_node[*trav].elem.prodID, P.prodID) == 0) {
-		printf("\nProduct ID already exists!\n"); 
-	} else if (*trav == -1 && A->count == VH_SIZE) {
-		printf("\nNo available space!\n");
+		if (*trav != -1 && strcmp(P.prodID, A->VHptr->VH_node[*trav].elem.prodID) == 0) {
+			printf("\nPRODUCT ID EXISTS\n");
+		} else {
+			int newPos = mallocInVHeap(A->VHptr);
+			if (newPos != -1) {
+				A->VHptr->VH_node[newPos].elem = P;
+				A->VHptr->VH_node[newPos].next = *trav;
+				*trav = newPos;
+				A->count++;
+			}
+		}
 	} else {
-		int pos = mallocInVHeap(A->VHptr);
-		if (pos != -1) {
-			printf("\nAvail: %d\n", A->VHptr->avail);
-			A->VHptr->VH_node[pos].elem = P;
-			A->VHptr->VH_node[pos].next = A->VHptr->VH_node[*trav].next;
-			*trav = pos;
-			A->count++;
-			printf("\nCount: %d\tValue of *trav: %d\tNext in *trav: %d\n", A->count, *trav, A->VHptr->VH_node[(*trav)].next);
-		} 
+		printf("\nNOT AVAILABLE SPACE!\n");
 	}
 }
 
@@ -344,7 +340,11 @@ void populateSet(cursorSet *A)
  ************************************************************/
 int openHash(char * prodID)               
 { 
-    
+    int ndx;
+	int sum = 0;
+	// for (ndx = 0; prodID) {
+
+	// }
 }
 
 
