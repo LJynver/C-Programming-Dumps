@@ -1,6 +1,5 @@
 #Ignore files 
 *.exe 
 *.dat
-*/Midterms-Chocolate
 #Include the students.dat file
 !students.dat
