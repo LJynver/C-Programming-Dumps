@@ -1,5 +1,0 @@
-#Ignore files 
-*.exe 
-*.dat
-#Include the students.dat file
-!students.dat
