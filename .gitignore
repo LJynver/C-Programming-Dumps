@@ -1,6 +1,6 @@
-#Ignore any compiled binaries 
+#Ignore files 
 *.exe 
-#Ignore .dat binary files
 *.dat
+*/Midterms-Chocolate
 #Include the students.dat file
 !students.dat
