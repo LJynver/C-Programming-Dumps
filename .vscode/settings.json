@@ -3,6 +3,7 @@
         "math.h": "c",
         "string.h": "c",
         "v1.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "heap_v1.h": "c"
     }
 }

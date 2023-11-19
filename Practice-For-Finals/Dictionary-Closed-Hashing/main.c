@@ -6,6 +6,5 @@ int main () {
 	
 	Dict main = init();
 	
-	
 	return 0;
 }
