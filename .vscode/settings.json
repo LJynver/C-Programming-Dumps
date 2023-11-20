@@ -4,6 +4,7 @@
         "string.h": "c",
         "v1.h": "c",
         "stdio.h": "c",
-        "heap_v1.h": "c"
+        "heap_v1.h": "c",
+        "stdlib.h": "c"
     }
 }
