@@ -9,8 +9,7 @@ int main ()
 
     printHeap(head);
 
-    insert(&head, 2);
-    insert(&head, 3);
+    insert(&head, 15);
 
     printHeap(head);
 

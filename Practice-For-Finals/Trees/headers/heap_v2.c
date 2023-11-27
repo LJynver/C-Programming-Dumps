@@ -6,8 +6,8 @@
 Heaplist init() 
 {
     Heaplist start = {
-        {4,5,9,8,6,9,10,10,18,9},
-        10
+        {10,15,2,1,65,7,9,14,23},
+        9
     };
     return start;
 }
