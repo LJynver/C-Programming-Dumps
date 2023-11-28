@@ -2,6 +2,18 @@
 #include <stdlib.h>
 #include <string.h>
 
+/***********************************/
+/***** DO NOT RUN THIS C FILE ******/
+/***********************************/
+/**** THIS IS JUST A TEMPLATE ******/
+/***********************************/
+/****** USE IT FOR REFERENCE *******/
+/***********************************/
+
+
+/******** ITEM 1 DEFINTION *********/
+/***** MY FUNCTION DEFINITION ******/
+
 typedef struct {
 	char FN[24], LN[16], MI;
 }nametype;
@@ -36,19 +48,14 @@ typedef struct node {
 
 int insertClist(Vheap virtheap, ArrayList arrlist, CursorList *clist);
 
-int main () {
-	
-	
-	
-	return 0;
-}
+/***** MY FUNCTION DEFINITION ******/
 
 int insertClist(Vheap virtheap, ArrayList arrlist, CursorList *clist)
 {
 	int retval = 0;
 	CursorList * trav, temp;
 	while (arrlist->studCtr > 0 && virtheap->avail != -1) {
-		for (trav = head; *trav != -1 && strcmp(virtheap->heap[*trav].stud.ID, arrlist->data[arrlist->studCtr-1].ID) < 0) {}
+		for (trav = clist; *trav != -1 && strcmp(virtheap->heap[*trav].stud.ID, arrlist->data[arrlist->studCtr-1].ID) < 0) {}
 		if (*trav == -1 || strcmp(virtheap->heap[*trav].stud.ID, arrlist->data[arrlist->studCtr-1].ID) != 0) {
 			temp = virtheap->avail;
 			virtheap->avail = virtheap->heap[temp].link;
@@ -59,9 +66,34 @@ int insertClist(Vheap virtheap, ArrayList arrlist, CursorList *clist)
 			
 			retVal++;
 			arrlist->studCtr--;
-			
+			//Although this would work but it will operate as if I am deleting the arrlist
+			//Which is not supposed to happen
+
 		}
 	}
 	
 	return retval;
 }
+
+/**** FROM OTHER'S SUGGESTION ******/
+
+int insertClist(Vheap virtheap, ArrayList arrlist, CursorList *clist)
+{
+	int retval = 0, x;
+	CursorList *trav, temp;
+	
+	for (x = 0; arrlist->studCtr > 0 && virtheap->avail != -1; ++x) {
+		for (trav = clist; *trav != -1 && strcmp(virtheap->heap[*trav].stud.ID, arrlist->data[x].ID) < 0) {}
+
+		if (*trav == -1 || strcmp(virtheap->heap[*trav].stud.ID, arrlist->data[x].ID) != 0) {
+			temp = virtheap->avail;
+			virtheap->avail = virtheap->heap[temp].link;
+
+			
+		}
+	}
+
+	return retval;
+}
+
+/********* END OF ITEM 1 ***********/
