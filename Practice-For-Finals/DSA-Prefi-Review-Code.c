@@ -12,7 +12,6 @@
 
 
 /******** ITEM 1 DEFINTION *********/
-/***** MY FUNCTION DEFINITION ******/
 
 typedef struct {
 	char FN[24], LN[16], MI;
