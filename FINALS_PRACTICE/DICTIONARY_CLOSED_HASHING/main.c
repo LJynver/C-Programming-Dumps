@@ -5,6 +5,7 @@
 int main () {
 	
 	Dict main = init();
+	printf("Initialization Complete!");
 	
 	return 0;
 }

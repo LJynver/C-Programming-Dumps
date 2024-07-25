@@ -6,6 +6,7 @@
 
 //Combined Linked-List and Arrays into one program
 //This was made after Ma'am mentioned about it in an exam. Lmao
+//This implementation only covers Array and Linked List implementation
 
 typedef char String[20];
 
